@@ -1,17 +1,24 @@
 //% weight=100 color=#0077cc icon="\uf11c"
 //% block="Extra Buttons"
 namespace extraButtons {
-    // Define custom controller buttons
-    let X = controller.player1.onButtonEvent
-    let Y = controller.player1.onButtonEvent
+    // Internal state trackers
+    let xPressed = false
+    let yPressed = false
 
     /**
      * Run code when the X button is pressed or released
      */
     //% block="on X button %event"
     export function onXButton(event: ControllerButtonEvent, handler: () => void) {
-        controller.player1.onButtonEvent(ControllerButton.A, event, () => {
-            handler()
+        game.onUpdate(function () {
+            const down = controller._isKeyDown(Key.X)
+            if (down && !xPressed) {
+                xPressed = true
+                if (event == ControllerButtonEvent.Pressed) handler()
+            } else if (!down && xPressed) {
+                xPressed = false
+                if (event == ControllerButtonEvent.Released) handler()
+            }
         })
     }
 
@@ -20,8 +27,15 @@ namespace extraButtons {
      */
     //% block="on Y button %event"
     export function onYButton(event: ControllerButtonEvent, handler: () => void) {
-        controller.player1.onButtonEvent(ControllerButton.B, event, () => {
-            handler()
+        game.onUpdate(function () {
+            const down = controller._isKeyDown(Key.Y)
+            if (down && !yPressed) {
+                yPressed = true
+                if (event == ControllerButtonEvent.Pressed) handler()
+            } else if (!down && yPressed) {
+                yPressed = false
+                if (event == ControllerButtonEvent.Released) handler()
+            }
         })
     }
 }
