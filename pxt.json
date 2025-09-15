@@ -1,0 +1,15 @@
+{
+  "name": "extra-buttons",
+  "version": "0.0.1",
+  "description": "MakeCode Arcade extension that adds virtual X and Y controller buttons mapped to keyboard keys",
+  "dependencies": {
+    "device": "*"
+  },
+  "files": [
+    "main.ts"
+  ],
+  "testFiles": [
+    "test.ts"
+  ],
+  "public": true
+}
